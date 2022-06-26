@@ -7,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BaseComponent } from './base/base.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,8 +23,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ButtonModule,
     UiModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: "baseUrl", useValue: "https://localhost:7276/api", multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
