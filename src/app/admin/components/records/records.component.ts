@@ -14,17 +14,7 @@ export class RecordsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.HttpClientService.get<CreateRecord[]>({
-      controller: "records"
-    }).subscribe(data => console.log(data));
-
-    this.HttpClientService.post({
-      controller: "records",
-    }, {
-      name: "deneme2",
-      stock: 100,
-      price: 3
-    }).subscribe(data => console.log(data));
+    
   }
 
 }
