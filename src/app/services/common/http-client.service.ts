@@ -45,7 +45,7 @@ export class HttpClientService {
     if(requestParameter.fullEndPoint)
       url = requestParameter.fullEndPoint;
     else
-      url = `${this.url(requestParameter)}/${id}`;
+      url = `${this.url(requestParameter)}?id=${id}`;
     return this.httpClient.delete<T>(url, {headers: requestParameter.headers});
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { CreateRecord } from 'src/app/contracts/create_record';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { RecordService } from 'src/app/services/common/models/record.service';
+import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -18,6 +19,8 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  @Output() createdRecord: EventEmitter<CreateRecord> = new EventEmitter();
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerType.BallAtom);
     const createRecord: CreateRecord = new CreateRecord();

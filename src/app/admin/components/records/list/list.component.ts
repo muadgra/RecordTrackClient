@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -6,7 +6,7 @@ import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import ListRecord from 'src/app/contracts/list_record';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { RecordService } from 'src/app/services/common/models/record.service';
-
+declare var $: any;
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -23,7 +23,9 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'stock',
     'createdDate',
-    'updatedDate'
+    'updatedDate',
+    'edit',
+    'delete',
   ];
   dataSource: MatTableDataSource<ListRecord> = new MatTableDataSource();
   @ViewChild(MatPaginator)
@@ -37,7 +39,6 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.showSpinner(SpinnerType.BallAtom);
     const allRecords: { totalCount: number; records: ListRecord[] } | undefined = await this.recordService.getAll(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5,
       () => this.hideSpinner(SpinnerType.BallAtom), () => this.alertifyService.message("Error while loading list", MessageType.Error, Position.TopRight, 3))
-   console.log(allRecords?.records);
     if (allRecords) {
       this.dataSource = new MatTableDataSource<ListRecord>(allRecords.records);
       
@@ -46,6 +47,11 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
   async pageChanged() {
     await this.getRecords();
+  }
+
+  delete(id: string, event: any){
+    const img: HTMLImageElement = event.srcElement;
+    $(img.parentElement?.parentElement).fadeOut(1000);
   }
 
 }

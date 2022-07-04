@@ -3,6 +3,7 @@ import { HttpClientService } from '../http-client.service';
 import { CreateRecord } from 'src/app/contracts/create_record';
 import { HttpErrorResponse } from '@angular/common/http';
 import ListRecord from 'src/app/contracts/list_record';
+import { firstValueFrom, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +45,13 @@ export class RecordService {
       })
 
     return await promiseData;
+  }
+
+  async delete(id: string){
+    const deleteOvservable: Observable<any> = this.httpClientService.delete<any>({
+      controller:"records"
+    }, id);
+
+    var a = await firstValueFrom(deleteOvservable);
   }
 }

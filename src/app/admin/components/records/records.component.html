@@ -1,6 +1,6 @@
 <mat-drawer-container class="record-create-container">
     <mat-drawer mode="side" opened>
-        <app-create></app-create>
+        <app-create (createdRecord)="createdRecord($event)"></app-create>
     </mat-drawer>
     <mat-drawer-content>
         <app-list></app-list>
