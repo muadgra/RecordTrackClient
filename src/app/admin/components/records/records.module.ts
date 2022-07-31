@@ -13,6 +13,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
+import { DialogModule } from 'src/app/dialogs/dialog.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,6 @@ import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dial
     CreateComponent,
     ListComponent,
     DeleteDirective,
-    DeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +34,7 @@ import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dial
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    DialogModule
   ]
 })
 export class RecordsModule { }

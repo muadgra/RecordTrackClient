@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+    <h1 mat-dialog-title>Are you sure of uploading the files?</h1>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Hayır</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Evet</button>
+</div>

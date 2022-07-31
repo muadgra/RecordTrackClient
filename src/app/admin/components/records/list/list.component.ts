@@ -4,7 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import ListRecord from 'src/app/contracts/list_record';
+import { SelectRecordImageDialogComponent } from 'src/app/dialogs/select-record-image-dialog/select-record-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { RecordService } from 'src/app/services/common/models/record.service';
 declare var $: any;
 @Component({
@@ -15,7 +17,10 @@ declare var $: any;
 export class ListComponent extends BaseComponent implements OnInit {
 
 
-  constructor(spinner: NgxSpinnerService, private recordService: RecordService, private alertifyService: AlertifyService) {
+  constructor(spinner: NgxSpinnerService, 
+    private recordService: RecordService, 
+    private alertifyService: AlertifyService,
+    private dialogService: DialogService) {
     super(spinner);
   }
   displayedColumns: string[] = [
@@ -26,6 +31,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     'updatedDate',
     'edit',
     'delete',
+    'photos'
   ];
   dataSource: MatTableDataSource<ListRecord> = new MatTableDataSource();
   @ViewChild(MatPaginator)
@@ -49,9 +55,16 @@ export class ListComponent extends BaseComponent implements OnInit {
     await this.getRecords();
   }
 
-  delete(id: string, event: any){
-    const img: HTMLImageElement = event.srcElement;
-    $(img.parentElement?.parentElement).fadeOut(1000);
+  addRecordImages(id: string){
+    this.dialogService.openDialog({
+      componentType: SelectRecordImageDialogComponent,
+      data: id,
+      options: {
+        width: "1400px",
+        height: "300px"
+      },
+      afterClosed: () => {}
+    })
   }
 
 }

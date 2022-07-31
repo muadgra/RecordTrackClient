@@ -4,6 +4,7 @@ import { CreateRecord } from 'src/app/contracts/create_record';
 import { HttpErrorResponse } from '@angular/common/http';
 import ListRecord from 'src/app/contracts/list_record';
 import { firstValueFrom, Observable } from 'rxjs';
+import { List_Record_Image } from 'src/app/contracts/list_record.image';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,10 +49,27 @@ export class RecordService {
   }
 
   async delete(id: string){
-    const deleteOvservable: Observable<any> = this.httpClientService.delete<any>({
+    const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       controller:"records"
     }, id);
 
-    var a = await firstValueFrom(deleteOvservable);
+    var a = await firstValueFrom(deleteObservable);
+  }
+
+  async readImages(id: string): Promise<List_Record_Image[]>{
+    const getObservable: Observable<List_Record_Image[]> = this.httpClientService.get<List_Record_Image[]>({
+      action: "getRecordImages",
+      controller: "records"
+    }, id);
+    return await firstValueFrom(getObservable);
+  }
+
+  async deleteImage(id: string, imageId: string, successCallBack?: () => void) {
+    const deleteObservable = this.httpClientService.delete({
+      action: "deleteproductimage",
+      controller: "products",
+      queryString: `imageId=${imageId}`
+    }, id)
+    await firstValueFrom(deleteObservable);
   }
 }

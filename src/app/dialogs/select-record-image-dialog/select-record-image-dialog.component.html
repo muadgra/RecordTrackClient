@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+    <app-file-upload [options]="options"></app-file-upload>
+
+    <mat-card class="record-image-card" *ngFor="let image of images">
+      <mat-card-header></mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content></mat-card-content>
+      <mat-card-actions>
+        <button mat-button>Delete</button>
+      </mat-card-actions>
+    </mat-card>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Evet</button>
+</div>
