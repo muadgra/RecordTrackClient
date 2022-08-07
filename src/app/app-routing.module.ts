@@ -8,6 +8,7 @@ import { RecordsModule } from './admin/components/records/records.module';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { BasketsModule } from './ui/components/baskets/baskets.module';
 import { HomeComponent } from './ui/components/home/home.component';
+import { RegisterModule } from './ui/components/register/register.module';
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
       module => BasketsModule
     )
   },
+  {
+    path: "register", loadChildren: () => import("./ui/components/records/records.module").then(
+      module => RegisterModule
+    )
+  }
 ];
 
 @NgModule({
