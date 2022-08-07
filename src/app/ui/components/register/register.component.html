@@ -2,23 +2,54 @@
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
         <div class="mb-3 col-md-3">
             <label for="name" class="form-label">Name</label>
-            <input formControlName="name" class="form-control" id="name" placeholder="Name" [ngClass]="{'is-invalid': submitted && component.name.errors}">
+            <input formControlName="name" class="form-control" id="name" placeholder="Name"
+                [ngClass]="{'is-invalid': submitted && component.name.errors}">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.name.errors && component.name.errors['required']">
+                Not ok.
+
+            </small>
         </div>
         <div class="mb-3 col-md-3">
             <label for="surname" class="form-label">Surname</label>
             <input formControlName="surname" class="form-control" id="surname" placeholder="Surname">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.surname.errors && component.surname.errors['required']">
+                Not ok.
+            </small>
         </div>
         <div class="mb-3 col-md-3">
             <label for="userName" class="form-label">Username</label>
-            <input formControlName="username" class="form-control" id="userName" placeholder="Please enter a username...">
+            <input formControlName="username" class="form-control" id="userName"
+                placeholder="Please enter a username...">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.username.errors && component.username.errors['required']">
+                Not ok.
+            </small>
         </div>
         <div class="mb-3 col-md-3">
             <label for="email" class="form-label">Email address</label>
             <input formControlName="email" type="email" class="form-control" id="email" placeholder="E-mail">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.email.errors && component.email.errors['required']">
+                Not ok.
+            </small>
         </div>
         <div class="mb-3 col-md-3">
             <label for="password" class="form-label">Password</label>
             <input formControlName="password" type="password" class="form-control" id="password">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.password.errors && component.password.errors['required']">
+                Not ok.
+            </small>
+        </div>
+        <div class="mb-3 col-md-3">
+            <label for="password" class="form-label">Password</label>
+            <input formControlName="passwordConfirm" type="password" class="form-control" id="password">
+            <small class="form-text text-muted"
+                *ngIf="submitted && formGroup.hasError('notSame')">
+                Not the same with password.
+            </small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

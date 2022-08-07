@@ -1,0 +1,22 @@
+<div class="login-container">
+    <form [formGroup]="formGroup" (ngSubmit)="login(formGroup.value)">
+        <div class="mb-3 col-md-3">
+            <label for="usernameOrEmail" class="form-label">Username</label>
+            <input #txtUsernameOrEmail formControlName="usernameOrEmail" class="form-control" id="usernameOrEmail" placeholder="usernameOrEmail"
+                [ngClass]="{'is-invalid': submitted && component.usernameOrEmail.errors}">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.usernameOrEmail.errors && component.usernameOrEmail.errors['required']">
+                Not ok.
+            </small>
+        </div>
+        <div class="mb-3 col-md-3">
+            <label for="password" class="form-label">Password</label>
+            <input #txtPassword formControlName="password" class="form-control" id="password" placeholder="password" type="password">
+            <small class="form-text text-muted"
+                *ngIf="submitted && component.password.errors && component.password.errors['required']">
+                Not ok.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>

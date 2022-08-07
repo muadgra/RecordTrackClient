@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Create_User } from 'src/app/contracts/users/create_user';
+import { UserService } from 'src/app/services/common/models/user.service';
+import UserInformation from 'src/app/types/models/UserInformation';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, 
+    private userService : UserService,
+    private toastr: ToastrService
+    ) { }
 
   formGroup!: FormGroup;
 
@@ -36,8 +43,21 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(30)
-      ]]
-    });
+      ]],
+      passwordConfirm: ["", [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(30)
+      ]]},
+      {
+        validators: (group: AbstractControl): ValidationErrors | null => {
+          let password = group.get("password")?.value;
+          let passwordConfirm = group.get("passwordConfirm")?.value;
+          
+          return password === passwordConfirm ? null : {notSame: true };
+        }
+      }
+    );
   }
 
   get component(){
@@ -45,13 +65,11 @@ export class RegisterComponent implements OnInit {
   }
 
   submitted: boolean = false;
-  async onSubmit(value: any){
+  async onSubmit(userData: UserInformation){
     this.submitted = true;
-    console.log(this.component);
-    if(this.formGroup.invalid){
-      return;
-    }
-    console.log(value);
+    console.log(userData);
+    const result: Create_User = await this.userService.create(userData);
+    return result.success ? this.toastr.success('User has been created!') : this.toastr.error('Error while creating user...');
   }
 
 }

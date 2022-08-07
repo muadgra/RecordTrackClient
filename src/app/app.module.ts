@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent
@@ -29,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
+    ToastrModule.forRoot(),
   ],
   providers: [{provide: "baseUrl", useValue: "https://localhost:7276/api", multi: true}],
   bootstrap: [AppComponent]
