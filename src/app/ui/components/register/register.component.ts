@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Create_User } from 'src/app/contracts/users/create_user';
 import { UserService } from 'src/app/services/common/models/user.service';
@@ -12,12 +12,12 @@ import UserInformation from 'src/app/types/models/UserInformation';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, 
+  constructor(private formBuilder: UntypedFormBuilder, 
     private userService : UserService,
     private toastr: ToastrService
     ) { }
 
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({

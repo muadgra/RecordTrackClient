@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Login_User } from 'src/app/contracts/users/login_user';
@@ -14,7 +14,7 @@ import { UserService } from 'src/app/services/common/models/user.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private userService: UserService,
     private toastr: ToastrService,
     private authService: AuthService,
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       usernameOrEmail: ["", [
