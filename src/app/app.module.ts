@@ -14,6 +14,7 @@ import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.com
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
+import { JwtModule } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent
@@ -30,6 +31,12 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem("accessToken"),
+        allowedDomains: ["localhost:7131"]
+      }
+    }),
     ToastrModule.forRoot(),
   ],
   providers: [{provide: "baseUrl", useValue: "https://localhost:7276/api", multi: true}],

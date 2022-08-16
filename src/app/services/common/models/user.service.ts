@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
+import { Token } from 'src/app/contracts/token/token';
+import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 import { Create_User } from 'src/app/contracts/users/create_user';
 import { Login_User } from 'src/app/contracts/users/login_user';
 import UserInformation from 'src/app/types/models/UserInformation';
@@ -20,11 +22,17 @@ export class UserService {
     return await firstValueFrom(observable) as Create_User;
    }
 
-   async login(user: Login_User){
-    const observable: Observable<any> = this.httpClientService.post({
+   async login(user: Login_User, callback: () => void){
+    const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
       controller: "users",
       action: "login"
     }, user)
-    return await firstValueFrom(observable);
-   }
+    const tokenResponse: TokenResponse = 
+    await firstValueFrom(observable) as TokenResponse;
+    if(tokenResponse){
+      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+    }
+    callback();
+    return tokenResponse;
+  }
 }

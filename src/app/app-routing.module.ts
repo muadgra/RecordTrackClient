@@ -6,6 +6,7 @@ import { OrdersModule } from './admin/components/orders/orders.module';
 import { RecordsComponent } from './admin/components/records/records.component';
 import { RecordsModule } from './admin/components/records/records.module';
 import { LayoutComponent } from './admin/layout/layout.component';
+import { AuthGuard } from './guards/common/auth.guard';
 import { BasketsModule } from './ui/components/baskets/baskets.module';
 import { HomeComponent } from './ui/components/home/home.component';
 import { LoginModule } from './ui/components/login/login.module';
@@ -29,7 +30,7 @@ const routes: Routes = [
         path: "orders", loadChildren: () => import("./admin/components/orders/orders.module").then(
           module => OrdersModule)
       }
-    ]
+    ], canActivate: [AuthGuard]
   },
   {
     path: "", component: HomeComponent
